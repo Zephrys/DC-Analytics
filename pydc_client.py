@@ -126,8 +126,8 @@ class pydc_client():
 		self._config["sharesize"] = 0 # Total size of data shared by the user in bytes
 		self._config["operator"] = False # Whether or not this user is an operator on the hub
 		# Client Details
-		self._config["client"] = "pyDC" # Client Name
-		self._config["version"] = "1" # Client Version
+		self._config["client"] = "ApexDC++" # Client Name
+		self._config["version"] = "1.6.2" # Client Version
 		self._config["connection"] = "100" # Connection Speed Indicator (Mbps)
 		self._config["mode"] = True # Whether or not this client can act as a server for peer-to-peer transfers.
 		self._config["cid"] = "%10d" % (random.randint(0,10**10-1)) # Client ID : CID needs to be pseudorandomly generated with negligible collision probability
@@ -831,6 +831,8 @@ class pydc_client():
 	def search_result_generate(self,request):	
 
 		req_pars = request.split(" ")
+
+
 		ip_add = req_pars[1]
 		file_val = req_pars[2]
 
