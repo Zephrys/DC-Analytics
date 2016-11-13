@@ -1,4 +1,5 @@
 from connection import Connection, ConnectionError
+import log_test
 import base64, bz2, copy, ctypes, itertools, math, os, platform, random, re, socket, sys, time, tiger, threading, traceback, xml.dom.minidom
 
 # sys.stderr = open("error.txt","w")
@@ -834,7 +835,7 @@ class pydc_client():
 		file_val = req_pars[2]
 
 		if file_val[:8] == "F?T?0?1?":
-			print ip_add, file_val[8:].replace("$", " ")
+			log_test.log(ip_add, file_val[8:].replace("$", " "))
 
 		info = None # Represents that the search pattern is as of now, unrecognized
 		if info is None: # Active Mode Search
