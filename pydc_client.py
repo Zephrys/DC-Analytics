@@ -1,7 +1,7 @@
 from connection import Connection, ConnectionError
 import log_test
 import base64, bz2, copy, ctypes, itertools, math, os, platform, random, re, socket, sys, time, tiger, threading, traceback, xml.dom.minidom
-
+from collections import defaultdict
 # sys.stderr = open("error.txt","w")
 # Nicknames cannot contain spaces
 
@@ -188,6 +188,9 @@ class pydc_client():
 		self._filetype = {"any":1,"audio":2,"compressed":3,"document":4,"executable":5,"image":6,"video":7,"folder":8,"tth":9} # Mapping of filetypes for search requests.
 		self._fileextn = {2:"mp mp wav au rm mid sm", 3:"zip arj rar lzh gz z arc pak", 4:"doc txt wri pdf ps tex", 5:"pm exe bat com", 6:"gif jpg jpeg bmp pcx png wmf psd", 7:"mpg mpeg avi asf mov"} # Allowed extension for specific filetypes in search requests.
 		self._save = "self._config,self._filelist,self._groups,self._queue,self._userips".split(",") # Constants based on which data is saved/loaded
+		# Custom Magic to get Nicks of Passive IPS
+		self._searchfor = {}
+		self._foundips = defaultdict(lambda: 'Not Available')
 		# Data Control
 		self._dir["filelist"] = "Filelists"
 		self._dir["incomplete"] = "Incomplete"
@@ -726,6 +729,10 @@ class pydc_client():
 					args["nick"] = x[1]
 					self._userips[args["nick"]] = info["host"]
 					args["transfer"]["nick"] = x[1] # Save the nick in the transfer object for direct access
+
+					if args["nick"] in self._searchfor:
+						self._foundips[args["nick"]] = info["host"]
+
 					if args["role"]=="server":
 						info["send"]("$MyNick "+self.escape(self._config["nick"])+"|$Lock "+self._config["lock"]+" Pk="+self._config["signature"]+"|")
 				elif x[0]=="$Lock":
