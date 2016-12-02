@@ -56,6 +56,7 @@ indianmovie_content = []
 games_content = []
 software_content = []
 artists_content = []
+english_content = []
 courses_content = []
 hindi_content = []
 english_query = 0
@@ -142,7 +143,7 @@ filtered_queries = 0
 with open('log.csv') as log:
     
     for line in log:
-        
+
         # timestamp = line[:line.find("\t")]
         search_query = line[line.rfind(":")+1:].lower().rstrip()
         # ip_add = line[:line.rfind(":")]
@@ -237,50 +238,10 @@ with open('log.csv') as log:
                                                         print search_query
                                                         input = int(raw_input())
 
-                                                        if input == 1:
-                                                            explicit_content.append(search_query)
-                                                            clog_test.log(line, 1)                
-                                                        if input == 2:
-                                                            indiantv_content.append(search_query)
-                                                            clog_test.log(line, 2)                
+                                                        clog_test.log(line, input)
 
-                                                        if input == 3:
-                                                            sports_content.append(search_query)
-                                                            clog_test.log(line, 3)                
+                                                        english_content.append(search_query)
                                                         
-                                                        if input == 4:
-                                                            indianmovie_content.append(search_query)
-                                                            clog_test.log(line, 4)                
-                                                        
-                                                        if input == 5:
-                                                            tvshow_content.append(search_query)
-                                                            clog_test.log(line, 5)                
-                                                        
-                                                        if input == 6:
-                                                            artists_content.append(search_query)
-                                                            clog_test.log(line, 6)                
-                                                        
-                                                        if input == 7:
-                                                            englishmovie_content.append(search_query)
-                                                            clog_test.log(line, 7)                
-                                                        
-                                                        if input == 8:
-                                                            courses_content.append(search_query)
-                                                            clog_test.log(line, 8)                
-                                                        
-                                                        if input == 9:
-                                                            games_content.append(search_query)
-                                                            clog_test.log(line, 9)                
-                                                        
-                                                        if input == 10:
-                                                            software_content.append(search_query)
-                                                            clog_test.log(line, 10)                
-                                                        
-                                                        if input == 11:
-                                                            hindi_content.append(search_query)
-                                                            clog_test.log(line, 11)                
-
-                                                        # english_query += 1
                                                         break
                                                 else:
                                                     clog_test.log(line, 11)
@@ -297,7 +258,7 @@ print "Academics:", len(courses_content) #8
 print "Games:",  len(games_content) #9
 print "Software:",  len(software_content) #10
 print "Hindi/Telugu/Spelling Mistakes:", len(hindi_content) #11
-print "English:",  english_query
+print "English:",  len(english_content)
 print "Filtered Queries:",  filtered_queries
 print "Trump Counter:",  trump_counter
 print
